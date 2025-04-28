@@ -1,0 +1,5 @@
+   <Polygon Fill="White" Opacity="0.3"
+Points="40,0,
+45,7,
+109,7,
+119,0" Grid.RowSpan="2"/>

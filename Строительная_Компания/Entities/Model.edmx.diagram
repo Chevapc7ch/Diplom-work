@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="bf42371b386a46948898f7df717aeddc" Name="Diagram1">
+        <EntityTypeShape EntityType="ConstructionCompanyModel.CompletedWorks" Width="1.5" PointX="5.25" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ConstructionCompanyModel.Projects" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ConstructionCompanyModel.Teams" Width="1.5" PointX="3" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ConstructionCompanyModel.Users" Width="1.5" PointX="0.75" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ConstructionCompanyModel.Workers" Width="1.5" PointX="5.25" PointY="6.875" IsExpanded="true" />
+        <AssociationConnector Association="ConstructionCompanyModel.FK__Completed__Proje__2E1BDC42" ManuallyRouted="false" />
+        <AssociationConnector Association="ConstructionCompanyModel.FK__Completed__TeamI__2F10007B" ManuallyRouted="false" />
+        <AssociationConnector Association="ConstructionCompanyModel.FK__Teams__ForemanID__267ABA7A" ManuallyRouted="false" />
+        <AssociationConnector Association="ConstructionCompanyModel.FK__Workers__TeamID__29572725" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

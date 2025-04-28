@@ -1,0 +1,92 @@
+CREATE DATABASE ConstructionCompany;
+GO
+
+USE ConstructionCompany;
+GO
+-- Таблица пользователей
+CREATE TABLE Users (
+    UserID INT PRIMARY KEY IDENTITY(1,1),
+    UserName NVARCHAR(100),
+    Role NVARCHAR(50)
+);
+
+-- Таблица бригад
+CREATE TABLE Teams (
+    TeamID INT PRIMARY KEY IDENTITY(1,1),
+    TeamName NVARCHAR(100),
+    ForemanID INT,
+    FOREIGN KEY (ForemanID) REFERENCES Users(UserID)
+);
+
+-- Таблица работников
+CREATE TABLE Workers (
+    WorkerID INT PRIMARY KEY IDENTITY(1,1),
+    TeamID INT,
+    WorkerName NVARCHAR(100),
+    Position NVARCHAR(50),
+    FOREIGN KEY (TeamID) REFERENCES Teams(TeamID)
+);
+
+-- Таблица проектов
+CREATE TABLE Projects (
+    ProjectID INT PRIMARY KEY IDENTITY(1,1),
+    ProjectName NVARCHAR(100),
+    Deadline DATE,
+    Status NVARCHAR(50)
+);
+
+-- Таблица выполненных работ
+CREATE TABLE CompletedWorks (
+    WorkID INT PRIMARY KEY IDENTITY(1,1),
+    ProjectID INT,
+    TeamID INT,
+    WorkDate DATE,
+    Description NVARCHAR(255),
+    FOREIGN KEY (ProjectID) REFERENCES Projects(ProjectID),
+    FOREIGN KEY (TeamID) REFERENCES Teams(TeamID)
+);
+GO
+-- Заполнение таблицы пользователей
+INSERT INTO Users (UserName, Role)
+VALUES ('Алексей', 'Администратор'),
+       ('Иван', 'Менеджер по проектам'),
+       ('Сергей', 'Бригада'),
+       ('Дмитрий', 'Прораб'),
+       ('Ольга', 'Бухгалтер');
+
+-- Заполнение таблицы бригад
+INSERT INTO Teams (TeamName, ForemanID)
+VALUES ('Бригада 1', 4),  -- Прораб
+       ('Бригада 2', 4);
+
+-- Заполнение таблицы работников
+INSERT INTO Workers (TeamID, WorkerName, Position)
+VALUES (1, 'Петр', 'Рабочий'),
+       (1, 'Анатолий', 'Рабочий'),
+       (2, 'Виктор', 'Рабочий'),
+       (2, 'Геннадий', 'Рабочий');
+
+-- Заполнение таблицы проектов
+INSERT INTO Projects (ProjectName, Deadline, Status)
+VALUES ('Строительство дома', '2024-12-31', 'В процессе'),
+       ('Ремонт офиса', '2024-06-30', 'Завершен');
+
+-- Заполнение таблицы выполненных работ
+INSERT INTO CompletedWorks (ProjectID, TeamID, WorkDate, Description)
+VALUES (1, 1, '2024-01-15', 'Установка фундамента'),
+       (1, 1, '2024-02-20', 'Стены'),
+       (2, 2, '2024-05-15', 'Покраска стен');
+GO
+-- Список строительных бригад
+CREATE VIEW TeamList AS
+SELECT T.TeamID, T.TeamName, W.WorkerName, W.Position
+FROM Teams T
+JOIN Workers W ON T.TeamID = W.TeamID;
+
+-- Выполненные работы по каждой бригаде за заданный интервал времени
+CREATE VIEW CompletedWorksReport AS
+SELECT P.ProjectName, T.TeamName, CW.WorkDate, CW.Description
+FROM CompletedWorks CW
+JOIN Projects P ON CW.ProjectID = P.ProjectID
+JOIN Teams T ON CW.TeamID = T.TeamID;
+GO
